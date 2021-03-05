@@ -1,2 +1,32 @@
 # PolicingLabResearch
 This is for my 2020-2021 research project conducted at Emory University. We are looking to clean, manipulate and visualize data on domestic officer involved shootings, mapping Census demographic information to each shooting incident. 
+
+
+## Big Picture Goal: 
+Merge Census data with the pre-existing officer-involved shooting dataset (OIS_master). More specifically, Find the smallest geographical unit (Census block) where each shooting incident occurred and gather relevant demographic features of the units from Census Bureau data
+
+OIS_master dataset has around 4086 entries in 36 different cities across the US. The original columns are as follows:
+- Incident ID
+- City
+- Date
+- Time
+- *Location (Address)
+- *Coordinates (lat/long)
+- Offender ID
+- *Offender Race
+- Offender Fatality  
+- (Fatal / Struck / Not-Struck)
+- *Officer Race
+- *Officer Fatality
+- (Fatal / Struck / Not-Struck)
+
+## Basic Process
+1. Block-level GEOID: Use the Census and FCC APIs to get GEOIDs for every shooting location based off of address and coordinates respectively
+2. Census Demographic Information: Use the get_decennial() function in the tidycensus package to get block-level demographic info for every block (identified by a 15-digit GEOID) in every county/state combination that had a shooting incident
+3. Join the two datasets: Join the OIS_master data with the block-level Census data so that each shooting incident has relevant demographic features 
+
+
+
+
+
+

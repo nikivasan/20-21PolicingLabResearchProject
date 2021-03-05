@@ -1,0 +1,150 @@
+---
+title: "Final Presentation Stats"
+author: "Niki Vasan"
+date: "11/9/2020"
+output: html_document
+---
+
+```{r setup}
+
+library(maps)
+library(ggmap)
+library(tidycensus)
+library(tidyverse)
+options(tigris_use_cache = TRUE)
+library(sf)
+library(forcats)
+
+
+```
+
+
+##THINGS TO WORK ON 
+1. combining Chicago for the summary graphs 
+2. creating a dataframe comparing the average population demographics of the blocks with shootings and the blocks adjacent to it without shootings
+3. finding a way to visualize the block level data on a map/create any relevant map visualizations
+
+
+#GRAPHS
+
+#1. Relationship between Average Black Male Population and Shootings
+```{r}
+map_plot <- final_dataset %>%
+    mutate(pct_black = 100 * (totblack/totpop)) %>%
+    group_by(City,pct_black) %>%
+    summarise(shootings = n_distinct(GEOID, na.rm = TRUE)) %>%
+    arrange(desc(pct_black))
+
+
+plot1 <- ggplot(map_plot, aes(x=City, y=shootings, group=avg_black, fill = avg_black)) + geom_bar(position="dodge", stat="identity") + coord_flip() + theme(axis.text=element_text(size=5), legend.title = element_text(size=6), legend.text = element_text(size=6)) + scale_fill_gradient2() + guides(fill=guide_legend(title="Average Black Pop."))
+plot1
+
+plot2 <- qplot(data = map_plot, x=avg_blackmale, y=shootings, geom = c("point","smooth"))
+plot2
+
+```
+
+
+
+#2. Relationship between Average Hispanic Male Population and Shootings
+```{r}
+map_plot2 <- final_dataset %>%
+    group_by(City) %>%
+    summarise(avg_hispmale = mean(hispmale, na.rm = TRUE), 
+              shootings = n_distinct(GEOID, na.rm = TRUE)) %>%
+    arrange(desc(avg_hispmale)) %>%
+
+
+plot3 <- ggplot(map_plot2, aes(x=City, y=fct_reorder(City, shootings), group=avg_hispmale, fill = avg_hispmale)) + geom_bar(position="dodge", stat="identity") + coord_flip() + theme(axis.text=element_text(size=5), legend.title = element_text(size=6), legend.text = element_text(size=6)) + scale_fill_gradient2() + guides(fill=guide_legend(title="Average Hispanic Male Pop."))
+plot3
+
+plot2 <- qplot(data = map_plot2, x=avg_hispmale, y=shootings, geom = c("point", "smooth"))
+plot2
+```
+
+#3. Philadelphia Visualizations
+```{r}
+#Philadelphia block-level map - no scatter, tidycensus 
+Phil_map <- get_decennial(geography = "block", county = "Philadelphia", state = "PA",
+                           variables = c(totpop = "P001001", 
+                                         totblack  = "P003003"), 
+                           year = 2010, geometry = TRUE, summary_var = "P001001")
+
+
+Phil_map %>%
+  mutate(pct_black = 100 * (value/summary_value)) %>%
+  ggplot(aes(fill = pct_black)) +
+  geom_sf(color = NA) +
+  coord_sf(crs = 26915) +
+  scale_fill_viridis_c(option = "magma")
+
+
+#merged data -- incomplete number of blocks 
+geoid_complete <- read.csv("OIS_GEOID_complete.csv")
+geoid_complete$GEOID <- substring(geoid_complete$GEOID,2)
+
+merged <- st_as_sf(merged)
+class(merged)
+
+phil_block_map <- merged %>%
+  mutate(pct_black = 100 * (totblack/totpop)) %>%
+  ggplot(aes(fill = totblack)) +
+  geom_sf(color = NA) +
+  coord_sf(crs = 26915) +
+  scale_fill_viridis_c(option = "magma")
+```
+
+
+
+
+
+
+
+#3. Map Visualization - LA
+```{r}
+#LA Shootings
+#Final Goal - Plot points over a map that shows percent hispanic population to see relationships between shootings and hispanic population
+
+la_coord <- final_dataset %>%
+    select(City, Lat, Long, GEOID, NAME) %>%
+    filter(City == "Los Angeles") %>%
+    summarise(maxlat = max(Lat), maxlong = max(Long), minlat = min(Lat), minlong = min(Long))
+
+shooting_la <- final_dataset %>%
+    filter(-118.7039 <= Long & Long <= -117.5048,
+           33.7304 <= Lat & Lat <= 34.41443)
+
+scatter_la <- qmplot(Long, Lat, data = shooting_la, maptype = "toner-lite", color = I("red"))
+    
+
+heat_la <- qmplot(Long, Lat, data = shooting_la, geom = "blank", 
+  zoom = 12, maptype = "toner-background", darken = .7, legend = "topleft"
+) + stat_density_2d(aes(fill = ..level..), geom = "polygon", alpha = .3, color = NA) +
+  scale_fill_gradient2("Shooting Propensity", low = "white", mid = "yellow", high = "red", midpoint = 15)
+
+```
+
+
+##Mean comparison - ex: ATL
+```{r}
+#avg percent black pop. of blocks with shooting vs avg percent black pop. of blocks with no shooting
+
+ois_atl <- final_dataset %>%
+    filter(City == "Atlanta")
+
+shooting_atl <- final_dataset %>%
+    filter(City == "Atlanta") %>%
+    mutate(percent_black = totblack/totpop * 100) %>%
+    summarise(avgperblack_s= mean(percent_black, na.rm = T))
+
+no_shooting_atl <- Atlanta %>%
+    anti_join(ois_atl, by = "NAME") %>%
+    mutate(percent_black = totblack/totpop * 100) %>%
+    summarise(avgperblack_nos= mean(percent_black, na.rm = T))
+
+data.frame(shooting_atl, no_shooting_atl)
+
+#Repeat for all cities...? But some cities have a higher hispanic pop. than black pop. i.e. LA so it might not be valuable to do so. Maybe we can do it individually for the top cities with the most shootings? Or we take the average of all variables? 
+
+```
+

@@ -1,0 +1,327 @@
+---
+title: "OIS_join"
+author: "Niki Vasan"
+date: "9/15/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+```{r}
+OIS_update <- read.csv("OIS_master_update.csv") 
+
+OIS_update%>%
+  mutate(Tract.Code = str_pad(OIS_update$Tract.Code, 6, side = "left", pad = "0"),
+         County.Code = str_pad(OIS_update$County.Code, 3, side = "left", pad = "0"), 
+         State.Code = str_pad(OIS_update$State.Code, 2, side = "left", pad = "0"), 
+         City =  ï..City) %>% 
+  select(-ï..City, -X, -X.1) %>%
+  unite(GEOID, State.Code:Block.Code, sep = "", remove = F)
+```
+
+```{r Albuquerque}
+Albu <- OIS_update %>% 
+  filter(City == "Albuquerque") %>%
+  left_join(Albuquerque, by = "GEOID")
+write.csv(Albu, "Albu.csv")
+```
+```{r Atlanta}
+ATL <- OIS_update %>% 
+  filter(City == "Atlanta") %>%
+  left_join(Atlanta, by = "GEOID")
+write.csv(ATL, "ATL.csv")
+```
+
+```{r Austin}
+Aus <- OIS_update %>% 
+  filter(City == "Austin") %>%
+  left_join(Austin, by = "GEOID")
+write.csv(Austin, "Aus.csv")
+```
+
+```{r Baltimore}
+Balti <- OIS_update %>% 
+  filter(City == "Baltimore") %>%
+  left_join(Baltimore, by = "GEOID")
+write.csv(Balti, "Balti.csv")
+```
+
+```{r Boston}
+Bos <- OIS_update %>% 
+  filter(City == "Boston") %>%
+  left_join(Boston, by = "GEOID")
+write.csv(Bos, "Bos.csv") 
+```
+
+```{r Charlotte}
+Char <- OIS_update %>% 
+  filter(City == "Charlotte") %>%
+  left_join(Charlotte, by = "GEOID")
+write.csv(Char, "Char.csv")
+```
+
+```{r Chicago}
+Chi <- OIS_update %>% 
+  filter(str_detect(City, "Chicago")) %>%
+  left_join(Chicago, by = "GEOID")
+write.csv(Chi, "Chi.csv")
+# no address info
+```
+
+```{r Cobb_County}
+Cobb <- OIS_update %>% 
+  filter(City == "Cobb County Sheriff's Office") %>%
+  left_join(Cobb_County, by = "GEOID")
+write.csv(Cobb, "Cobb.csv")
+# no address info
+```
+
+```{r Columbus}
+Columbus <- read.csv("Columbus.csv") %>%
+  mutate(GEOID = as.character(GEOID)) %>%
+  select(-X)
+Colum <- OIS_update %>% 
+  filter(City == "Columbus") %>%
+  left_join(Columbus, by = "GEOID")
+write.csv(Colum, "Colum.csv")
+
+```
+
+```{r Denver}
+Denver <- read.csv("Denver.csv") %>%
+  mutate(GEOID = as.character(GEOID)) %>%
+  select(-X)
+
+Den <- OIS_update %>% 
+  filter(City == "Denver") %>%
+  left_join(Denver, by = "GEOID")
+write.csv(Den, "Den.csv")
+```
+
+```{r Fort Worth}
+Fort <- OIS_update %>% 
+  filter(City == "Fort Worth") %>%
+  left_join(Fort_Worth, by = "GEOID")
+write.csv(Fort, "Fort.csv")
+
+```
+
+```{r Fresno}
+Fres <- OIS_update %>% 
+  filter(City == "Fresno") %>%
+  left_join(Fresno, by = "GEOID")
+write.csv(Fres, "Fres.csv")
+```
+```{r Gwinnett}
+Gwin <- OIS_update %>% 
+  filter(City == "Gwinnett County") %>%
+  left_join(Gwinnett, by = "GEOID")
+write.csv(Gwin, "Gwin.csv")
+```
+
+```{r Houston}
+Houston <- read.csv("Houston.csv") %>%
+  mutate(GEOID = as.character(GEOID)) %>%
+  select(-X)
+
+Hou <- OIS_update %>% 
+  filter(City == "Houston") %>%
+  left_join(Houston, by = "GEOID")
+write.csv(Hou, "Hou.csv")
+
+```
+
+```{r Indianapolis}
+India <- OIS_update %>% 
+  filter(City == "Indianapolis") %>%
+  left_join(Indianapolis, by = "GEOID")
+write.csv(India, "India.csv")
+```
+
+```{r King Seattle}
+King <- read.csv("King.csv") %>%
+  mutate(GEOID = as.character(GEOID)) %>%
+  select(-X)
+
+Ki <- OIS_update %>% 
+  filter(City == "King County"|City == "Seattle") %>%
+  left_join(King, by = "GEOID")
+write.csv(Ki, "Ki.csv")
+# no address info 
+```
+
+```{r Las Vegas}
+Las_Vegas <- read.csv("Las_Vegas.csv") %>%
+  mutate(GEOID = as.character(GEOID)) %>%
+  select(-X)
+Las <- OIS_update %>% 
+  filter(City == "Las Vegas") %>%
+  left_join(Las_Vegas, by = "GEOID")
+write.csv(Las, "Las.csv")
+```
+
+```{r Long Beach Los Angeles}
+LongBeach_LosAngeles <- read.csv("LongBeach_LosAngeles.csv") %>%
+  mutate(GEOID = as.character(GEOID) %>% str_pad(15, "left", pad = "0")) %>%
+  select(-X)
+LBLA <- OIS_update %>% 
+  filter(City == "Long Beach"|City == "Los Angeles") %>%
+  left_join(LongBeach_LosAngeles, by = "GEOID")
+write.csv(LBLA, "LBLA.csv")
+
+```
+
+```{r Miami}
+Mia <- OIS_update %>% 
+  filter(City == "Miami") %>%
+  left_join(Miami, by = "GEOID")
+write.csv(Mia, "Mia.csv")
+```
+
+```{r Oklahoma}
+Oklahoma <- read.csv("Oklahoma.csv") %>%
+  mutate(GEOID = as.character(GEOID)) %>%
+  select(-X)
+Okla <- OIS_update %>% 
+  filter(City == "Oklahoma City") %>%
+  left_join(Oklahoma, by = "GEOID")
+write.csv(Okla, "Okla.csv")
+```
+
+```{r Orlando}
+Orlan <- OIS_update %>% 
+  filter(City == "Orlando") %>%
+  left_join(Orlando, by = "GEOID")
+write.csv(Orlan, "Orlan.csv")
+ 
+```
+
+```{r Philadelphia}
+Phi <- OIS_update %>% 
+  filter(City == "Philadelphia") %>%
+  left_join(Philadelphia, by = "GEOID")
+write.csv(Phi, "Phi.csv")
+```
+
+```{r Phoenix}
+Phoe <- OIS_update %>% 
+  filter(City == "Phoenix") %>%
+  left_join(Phoenix, by = "GEOID")
+write.csv(Phoe, "Phoe.csv")
+```
+
+```{r Portland}
+Portland <- read.csv("Portland.csv") %>%
+  mutate(GEOID = as.character(GEOID)) %>%
+  select(-X)
+Por <- OIS_update %>% 
+  filter(City == "Portland") %>%
+  left_join(Portland, by = "GEOID")
+write.csv(Por, "Por.csv")
+```
+
+```{r Sacramento}
+
+Sacra <- OIS_update %>% 
+  filter(City == "Sacramento") %>%
+  left_join(Sacramento, by = "GEOID")
+write.csv(Sacra, "Sacra.csv")
+
+```
+
+```{r Salt Lake}
+SaltLake <- read.csv("SaltLake.csv") %>%
+  mutate(GEOID = as.character(GEOID)) %>%
+  select(-X)
+Sal <- OIS_update %>% 
+  filter(City == "Salt Lake City") %>%
+  left_join(SaltLake, by = "GEOID")
+write.csv(Sal, "Sal.csv")
+
+```
+
+
+```{r San Antonio}
+San_An <- OIS_update %>% 
+  filter(City == "San Antonio") %>%
+  left_join(San_Antonio, by = "GEOID")
+write.csv(San_An, "San_An.csv")
+```
+
+```{r San Diego}
+San_D <- OIS_update %>% 
+  filter(City == "San Diego") %>%
+  left_join(San_Diego, by = "GEOID")
+write.csv(San_D, "San_D.csv")
+```
+
+
+
+```{r San Francisco}
+San_Francisco <- read.csv("San_Francisco.csv") %>%
+  mutate(GEOID = as.character(GEOID)  %>% str_pad(15, "left", pad = "0")) %>%
+  select(-X)
+SanFran <- OIS_update %>% 
+  filter(City == "San Francisco") %>%
+  left_join(San_Francisco, by = "GEOID")
+write.csv(SanFran, "SanFran.csv")
+
+```
+
+```{r San Jose}
+San_Jose <- read.csv("San_Jose.csv") %>%
+  mutate(GEOID = as.character(GEOID)  %>% str_pad(15, "left", pad = "0")) %>%
+  select(-X)
+SanJo <- OIS_update %>% 
+  filter(City == "San Jose") %>%
+  left_join(San_Jose, by = "GEOID")
+write.csv(SanJo, "SanJo.csv")
+```
+
+
+```{r St. Louis}
+St_Lo <- OIS_update %>% 
+  filter(City == "St. Louis") %>%
+  left_join(St_Louis, by = "GEOID")
+write.csv(St_Lo, "St_Lo.csv")
+```
+
+
+```{r Stockton}
+Stock <- OIS_update %>% 
+  filter(City == "Stockton") %>%
+  left_join(Stockton, by = "GEOID")
+write.csv(Stock, "Stock.csv")
+```
+
+
+
+```{r Tucson}
+Tuc <- OIS_update %>% 
+  filter(City == "Tucson") %>%
+  left_join(Tucson, by = "GEOID")
+write.csv(Tuc, "Tuc.csv")
+```
+
+ 
+
+```{r Virginia Beach}
+Virg <- OIS_update %>% 
+  filter(City == "Virginia Beach") %>%
+  left_join(Virginia_Beach, by = "GEOID")
+write.csv(Virg, "Virg.csv")
+```
+
+
+```{r}
+OIS_complete <- rbind(Albu, ATL, Aus, Balti, Bos, Char, Chi, Cobb, Colum, Den, Fort, Fres, Gwin, Hou, India, Ki, Las, LBLA, Mia, Okla, Orlan, Phi, Phoe, Por, Sacra, Sal, San_An, San_D, SanFran, SanJo, St_Lo, Virg, Tuc)
+write.csv(OIS_complete, "OIS_full.csv")
+```
+
+
+```
+
+

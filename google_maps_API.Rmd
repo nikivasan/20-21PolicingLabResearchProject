@@ -1,0 +1,51 @@
+---
+title: "Google Maps API"
+author: "Niki Vasan"
+date: "10/28/2020"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+library(ggmap)
+library(hablar)
+
+
+ois_map <- read.csv("OIS_update_new_2.csv")
+```
+
+
+
+```{r}
+#convert to character data type
+ois_map <- ois_map %>%
+    convert(chr(Location)) %>%
+    convert(chr(City))
+
+#code
+for(i in 1:length(ois_map$GEOID)){
+    if (is.na(ois_map$GEOID[i]) == TRUE) {
+        geo <- geocode(paste(ois_map$Location[i], ois_map$City[i], sep = ","),output = "latlon")
+        ois_map$Lat[i] <- geo$lat
+        ois_map$Long[i] <- geo$lon
+    }
+}
+
+write.csv(ois_map, "OIS_update_map.csv")
+
+```
+
+
+```{r}
+#pre-google API - number of rows that didn't have coordinates and GEOID (556)
+
+OIS_updates %>%
+    filter((is.na(Lat)) & (is.na(GEOID))) %>%
+    summarise(n())
+
+#post-google API - number of rows that didn't have coordinates and GEOID (7)
+ois_map %>%
+    filter(is.na(Lat) & is.na(GEOID)) %>%
+    summarise(n())
+```
+

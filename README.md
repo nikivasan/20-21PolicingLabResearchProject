@@ -20,11 +20,14 @@ OIS_master dataset has around 4086 entries in 36 different cities across the US.
 - *Officer Fatality
 - (Fatal / Struck / Not-Struck)
 
+* indicates missing or incomplete information. 
+
 ## Basic Process
 1. Block-level GEOID: Use the Census and FCC APIs to get GEOIDs for every shooting location based off of address and coordinates respectively
 2. Census Demographic Information: Use the get_decennial() function in the tidycensus package to get block-level demographic info for every block (identified by a 15-digit GEOID) in every county/state combination that had a shooting incident
 3. Join the two datasets: Join the OIS_master data with the block-level Census data so that each shooting incident has relevant demographic features 
 
+Further information can be found here: https://docs.google.com/presentation/d/1cPYxRZC9R3QHfxb1EbvBnYnOpdTCMtkQmqvCT0t5TeQ/edit?usp=sharing
 
 
 

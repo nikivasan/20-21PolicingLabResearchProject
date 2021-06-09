@@ -1,6 +1,6 @@
 # PolicingLabResearch Fall 2020
 
-The project was conducted in two stages. Attached is a [link](https://docs.google.com/presentation/d/1cPYxRZC9R3QHfxb1EbvBnYnOpdTCMtkQmqvCT0t5TeQ/edit?usp=sharing) to the final slide deck that encompasses our methods and results.
+The project was conducted in two stages, Stage 1 being the process used to gather the relevant Census demographic information and Stage 2 being joining the data to our original dataset with the use of force incidients. Attached is a [link](https://docs.google.com/presentation/d/1cPYxRZC9R3QHfxb1EbvBnYnOpdTCMtkQmqvCT0t5TeQ/edit?usp=sharing) to the final slide deck that encompasses our methods and results.
 
 ## Stage 1: simplified_code_updated.R
 

@@ -1,6 +1,4 @@
-# PolicingLabResearch Code
-
-This is the code for some of the work we did for this project. 
+# PolicingLabResearch Fall 2020
 
 ## Stage 1: simplified_code_updated.R
 

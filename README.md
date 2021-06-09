@@ -1,4 +1,4 @@
-## Research Project
+## Emory Research 2020-2021
 
 This repo holds the research projects I have worked on in [Fall 2020](https://github.com/nikivasan/PolicingLabResearch/tree/master/Fall2020) and [Spring 2021](https://github.com/nikivasan/PolicingLabResearch/tree/master/Spring2021). Each project has a respective README file that 
 provides a summary of the work that was done and the results. Fall 2020's research focused more on understanding the spatial concentration of police use-of-force 

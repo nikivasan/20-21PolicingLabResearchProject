@@ -1,5 +1,7 @@
 # PolicingLabResearch Fall 2020
 
+The project was conducted in two stages. Attached is a [link](https://docs.google.com/presentation/d/1cPYxRZC9R3QHfxb1EbvBnYnOpdTCMtkQmqvCT0t5TeQ/edit?usp=sharing) to the final slide deck that encompasses our methods and results.
+
 ## Stage 1: simplified_code_updated.R
 
 This is the more efficient code that we used to gather the Census information. We originally used the get_decennial() function from the package tidycensus (API call to the decennial Census) on each county-state combination individually for a total of the 37 cities and obtained block-level data from the Decennial Census: Summary File 1 (2010), sf1. 

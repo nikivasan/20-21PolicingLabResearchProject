@@ -1,5 +1,5 @@
 # PolicingLabResearch
-This is for my Fall 2020 research project conducted at Emory University. We are looking to clean, manipulate and visualize data on domestic officer involved shootings, mapping Census demographic information to each shooting incident. This research was conducted in partnership with Mengxuan Yan, a fellow student at Emory University. Further updates will follow from this semester. 
+This repo is for my Fall 2020 research project conducted at Emory University. We are looking to clean, manipulate and visualize data on domestic officer involved shootings, mapping Census demographic information to each shooting incident. This research was conducted in partnership with Mengxuan Yan, a fellow student at Emory University. Further updates will follow from this semester. 
 
 
 ## Big Picture Goal: 

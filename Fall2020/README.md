@@ -1,7 +1,7 @@
 # PolicingLabResearch Fall 2020
 ### By Niki Vasan and Mengxuan Yan
 
-The project was conducted in two stages, Stage 1 being the process used to gather the relevant Census demographic information and Stage 2 being joining the data to our original dataset with the use of force incidients. Attached is a [link](https://docs.google.com/presentation/d/1cPYxRZC9R3QHfxb1EbvBnYnOpdTCMtkQmqvCT0t5TeQ/edit?usp=sharing) to the final slide deck that encompasses our methods and results.
+The project was conducted in two stages, Stage 1 being the process used to gather the relevant Census demographic information and Stage 2 being joining the data to our original dataset with the use of force incidients. See our final [slide deck](https://github.com/nikivasan/PolicingLabResearch/blob/master/Fall2020/Policing%20Lab%20Research%20Presentation.pdf) that encompasses our methods and results for more information.
 
 ## Stage 1: simplified_code_updated.R
 

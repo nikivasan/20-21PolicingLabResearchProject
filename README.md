@@ -5,4 +5,4 @@ provides a summary of the work that was done and the results. Fall 2020's resear
 incidients in relationship to minority concentrations in urban counties. In Spring 2021, we pivoted to look more into the efficacy of police de-escalation training on
 decreasing severe use-of-force incidents, particularly against minority victims, using New Jersey as a case study. 
 
-Both projects were collaborative, with due credit given to my peers Mengxuan Yan (Fall and Spring) and Jon Marcus (Spring), both of whom worked extensively with me on all tasks, as well as Professor Adam Glynn and Josh Tschantret who guided our work. 
+Both projects were collaborative, with due credit given to my peers **Mengxuan Yan** (Fall and Spring) and **Jon Marcus (Spring)**, both of whom worked extensively with me on all tasks, as well as Professor Adam Glynn and Josh Tschantret who guided our work. 

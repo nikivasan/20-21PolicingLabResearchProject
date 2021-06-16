@@ -19,15 +19,9 @@ library(forcats)
 ```
 
 
-##THINGS TO WORK ON 
-1. combining Chicago for the summary graphs 
-2. creating a dataframe comparing the average population demographics of the blocks with shootings and the blocks adjacent to it without shootings
-3. finding a way to visualize the block level data on a map/create any relevant map visualizations
-
-
 #GRAPHS
 
-#1. Relationship between Average Black Male Population and Shootings
+#1. Relationship between Average Black Male Population and Shootings (Niki)
 ```{r}
 map_plot <- final_dataset %>%
     mutate(pct_black = 100 * (totblack/totpop)) %>%
@@ -46,7 +40,7 @@ plot2
 
 
 
-#2. Relationship between Average Hispanic Male Population and Shootings
+#2. Relationship between Average Hispanic Male Population and Shootings (Niki)
 ```{r}
 map_plot2 <- final_dataset %>%
     group_by(City) %>%
@@ -62,7 +56,7 @@ plot2 <- qplot(data = map_plot2, x=avg_hispmale, y=shootings, geom = c("point", 
 plot2
 ```
 
-#3. Philadelphia Visualizations
+#3. Philadelphia Visualizations (Mengxuan)
 ```{r}
 #Philadelphia block-level map - no scatter, tidycensus 
 Phil_map <- get_decennial(geography = "block", county = "Philadelphia", state = "PA",
@@ -100,7 +94,7 @@ phil_block_map <- merged %>%
 
 
 
-#3. Map Visualization - LA
+#3. Map Visualization - LA (Niki)
 ```{r}
 #LA Shootings
 #Final Goal - Plot points over a map that shows percent hispanic population to see relationships between shootings and hispanic population
@@ -143,8 +137,6 @@ no_shooting_atl <- Atlanta %>%
     summarise(avgperblack_nos= mean(percent_black, na.rm = T))
 
 data.frame(shooting_atl, no_shooting_atl)
-
-#Repeat for all cities...? But some cities have a higher hispanic pop. than black pop. i.e. LA so it might not be valuable to do so. Maybe we can do it individually for the top cities with the most shootings? Or we take the average of all variables? 
 
 ```
 

@@ -1,4 +1,4 @@
-#PROCESS
+#PROCESS (Mengxuan Yan)
 #1. Use FCC API to get GEOID for each shooting (separate code)
 #2. Use tidycensus get_decennial() to get block demographic information specifying state
     #and county (this piece of code)

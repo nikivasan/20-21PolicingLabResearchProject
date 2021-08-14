@@ -14,3 +14,4 @@ Our task was to replicate the analysis and observe if there any variations in th
 divided the numbers by per 1000 arrests, which we also removed to determine if a decrease in the use-of-force rate was attributed to an increase in arrests. 
 Ultimately, the goal of this research was largely discovery and in service of extending the research on this topic. 
 
+*Code and Analysis pending approval for public viewing*
